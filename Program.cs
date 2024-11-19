@@ -1,27 +1,59 @@
-﻿class Program
+﻿static void Main(string[] args)
+{}
+interface IDriveable
 {
-    static void Main(string[] args)
+    void Move();
+    void Stop();
+}
+
+class Road
+{
+    public double Length { get; set; }
+    public double Width { get; set; }
+    public int Lanes { get; set; }
+    public int TrafficLevel { get; set; }
+}
+
+class Vehicle : IDriveable
+{
+    public double Speed { get; set; }
+    public double Size { get; set; }
+    public VehicleType Type { get; set; }
+
+    public void Move()
     {
-        // Створення мережі
-        Мережа мережа = new Мережа();
+        // Логіка руху транспортного засобу
+        Console.WriteLine($"{Type} is moving.");
+    }
 
-        // Створення пристроїв
-        Сервер сервер = new Сервер("192.168.0.1", 500, "Linux", 1000);
-        РобочаСтанція робочаСтанція = new РобочаСтанція("192.168.0.2", 300, "Windows", "Юзер1");
-        Маршрутизатор маршрутизатор = new Маршрутизатор("192.168.0.254", 200, "Firmware", 4);
-
-        // Додавання пристроїв до мережі
-        мережа.ДодатиКомпютер(сервер);
-        мережа.ДодатиКомпютер(робочаСтанція);
-        мережа.ДодатиКомпютер(маршрутизатор);
-
-        // З'єднання та передача даних
-        робочаСтанція.Зєднатися(сервер);
-        мережа.ПередатиДані(робочаСтанція, сервер, "Hello, Server!");
-
-        маршрутизатор.Зєднатися(робочаСтанція);
-        мережа.ПередатиДані(маршрутизатор, сервер, "Ping!");
-
-        робочаСтанція.Відєднатися(сервер);
+    public void Stop()
+    {
+        // Логіка зупинки транспортного засобу
+        Console.WriteLine($"{Type} has stopped.");
     }
 }
+
+enum VehicleType
+{
+    Car,
+    Truck,
+    Bus
+}
+
+class TrafficSimulator
+{
+    public List<Road> Roads { get; set; }
+    public List<Vehicle> Vehicles { get; set; }
+
+    public void Simulate()
+    {
+        // Цикл імітації
+        foreach (var vehicle in Vehicles)
+        {
+            // Вибір дороги
+            // Перевірка умов руху (швидкість, трафік, перешкоди)
+            vehicle.Move();
+        }
+    }
+}
+   
